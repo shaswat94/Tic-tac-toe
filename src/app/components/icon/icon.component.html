@@ -1,0 +1,14 @@
+<div [ngSwitch]= "iconName">
+    <div *ngSwitchCase= " 'empty' ">
+        <fa-icon [icon] = "fa-pen" class="icon"></fa-icon>
+    </div>
+    <div *ngSwitchCase= " 'cross' ">
+        <fa-icon [icon] = "fa-times" class="icon"></fa-icon>
+    </div>
+    <div *ngSwitchCase= " 'circle' ">
+        <fa-icon [icon] = "fa-circle" class="icon"></fa-icon>
+    </div>
+    <div *ngSwitchDefault>
+        Something's not right.
+    </div>
+</div>
