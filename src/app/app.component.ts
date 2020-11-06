@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import {faPen, faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faCircle } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,9 @@ export class AppComponent {
   winMessage = '';
   isCross = false; // to decide the turn of the player.
   items: string[] = new Array(9).fill('empty');
+  iconName = 'empty';
+  player1: string = '';
+  player2: string = '';
   
   constructor(private toastr: ToastrService) {
     this.toastr.toastrConfig.preventDuplicates = true;
@@ -21,7 +26,7 @@ export class AppComponent {
     {
       this.toastr.success(this.winMessage);
     }
-   if (this.items[itemNumber] === 'empty')
+   else if (this.items[itemNumber] === 'empty')
     {
       this.items[itemNumber] = this.isCross ? 'cross' : 'circle';
       this.isCross = !this.isCross;
@@ -33,6 +38,14 @@ export class AppComponent {
     }
 
     this.checkWinner();
+    if (this.winMessage)
+    {
+      console.log(this.items);
+        this.toastr.success(this.winMessage);
+    }
+    else if (this.items.filter(i => i === 'empty').length === 0 && this.winMessage === ''){
+      this.toastr.info("The match is a draw");
+    }
   };
 
   checkWinner = () => {
@@ -91,5 +104,12 @@ export class AppComponent {
     this.winMessage = '';
     this.isCross = false;
     this.items = new Array(9).fill('empty');
+    this.player1 = '';
+    this.player2 = '';
+  }
+
+  startGame =  (person1: string, person2: string) => {
+    this.player1 = person1;
+    this.player2 = person2;
   }
 }
